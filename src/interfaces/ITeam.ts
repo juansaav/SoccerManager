@@ -1,12 +1,12 @@
 import { IPlayer } from "./IPlayer";
 
 export interface ITeam {
-  id: number;
+  id?: number;
   name: string;
   countryCode: string;
   budget: number;
-  userId?: number;
-  players: IPlayer[];
+  userId: number;
+  players?: IPlayer[];
 }
 
  

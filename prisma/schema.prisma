@@ -33,13 +33,14 @@ model Player {
   firstName        String
   lastName         String
   countryCode      String
+  type             String
   age              Int
   value            Int
-
 
   team             Team @relation(fields: [teamId], references: [id])
   teamId           Int
 }
+
 
 model Configuration {
   id    Int    @id @default(autoincrement())

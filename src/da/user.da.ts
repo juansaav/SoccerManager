@@ -1,5 +1,5 @@
 import { IUser } from "../interfaces"; 
-import { db } from "../da/dbconnection"; 
+import { db } from "./dbconnection"; 
 
 export class UserDA { 
 
