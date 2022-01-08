@@ -1,5 +1,6 @@
 # Other
 commands.txt
+package-lock.json
 
 # Database
 prisma/dev.db
