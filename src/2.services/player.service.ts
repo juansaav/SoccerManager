@@ -1,12 +1,20 @@
-import { PlayerDA } from "../3.da";
-import { IPlayer } from "../interfaces/IPlayer";
+import { PlayerDA, TeamDA, UserDA } from "../3.da";
+import { IPlayer, IPlayerUpdateDTO } from "../interfaces/IPlayer";
 import { Utils } from "../common/utils";
 import { PlayerType } from "../3.da/playerType.enum";
 import randomName from "random-name";
 import * as _ from "lodash";
+import { TeamService, UserService } from ".";
 
 export class PlayerService {
-  constructor(private playerda: PlayerDA) {}
+  private teamService;
+  private userService;
+
+  constructor(private playerda: PlayerDA, teamDa: TeamDA, userDa: UserDA) {
+    // TODO: improve this part, circular dependency
+    this.teamService = new TeamService(teamDa, this);
+    this.userService = new UserService(userDa, this.teamService);
+  }
 
   public async GetPlayerId(id: number) {
     return await this.playerda.GetPlayerId(id);
@@ -41,7 +49,6 @@ export class PlayerService {
     return players;
   }
 
-  // Create Player
   private async CreateRandomPlayer(
     teamId: number,
     type: PlayerType,
@@ -62,5 +69,22 @@ export class PlayerService {
       throw new Error("Player cannot be created");
     }
     return player;
+  }
+
+  public async UpdatePlayer(id: number, userId: number, obj: IPlayerUpdateDTO) {
+    const [user, player] = await Promise.all([
+      this.userService.GetUserId(userId, true),
+      this.GetPlayerId(id),
+    ]);
+    if (!player) {
+      throw { code: 404, message: "Player not found" };
+    }
+    if (player.teamId !== user.team.id) {
+      throw {
+        code: 401,
+        message: "User is not the owner of the team " + player.teamId,
+      };
+    }
+    await this.playerda.UpdatePlayer(id, obj);
   }
 }

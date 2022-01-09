@@ -14,7 +14,7 @@ export class ErrorHandler {
     if (err.code) {
       switch (err.code) {
         case 401:
-          code = 404;
+          code = 401;
           break;
         case 404:
         case PrismaError.P2025:

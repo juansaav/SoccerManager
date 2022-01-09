@@ -10,3 +10,10 @@ export interface IPlayer {
   value: number;
   teamId: number;
 }
+
+
+export interface IPlayerUpdateDTO {
+  firstName?: string;
+  lastName?: string;
+  countryCode?: string;
+}

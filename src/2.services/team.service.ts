@@ -32,11 +32,7 @@ export class TeamService {
     return Team(team);
   }
 
-  public async UpdateTeam(
-    id: number,
-    userId: number,
-    obj: ITeamUpdateDTO
-  ): Promise<boolean> {
+  public async UpdateTeam(id: number, userId: number, obj: ITeamUpdateDTO) {
     const team = await this.teamda.GetTeamId(id);
     if (!team) {
       throw { code: 404, message: "Team not found" };
@@ -45,6 +41,6 @@ export class TeamService {
       throw { code: 401 };
     }
 
-    return !!(await this.teamda.UpdateTeam(id, obj));
+    await this.teamda.UpdateTeam(id, obj);
   }
 }

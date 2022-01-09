@@ -12,8 +12,8 @@ export class UserService {
   private defaultCountryCode = "US";
 
   // Get User by id
-  public async GetUserId(id: number) {
-    return await this.userda.GetUserId(id);
+  public async GetUserId(id: number, includeTeam: boolean = false) {
+    return await this.userda.GetUserId(id, includeTeam);
   }
 
   // Get User by email

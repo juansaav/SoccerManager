@@ -38,7 +38,7 @@ const teamDa = new TeamDA();
 const playerDa = new PlayerDA();
 
 // Service layer
-const playerService = new PlayerService(playerDa);
+const playerService = new PlayerService(playerDa, teamDa, userDa);
 const teamService = new TeamService(teamDa, playerService);
 const userService = new UserService(userDa, teamService);
 const sessionService = new SessionService(userService);

@@ -45,8 +45,8 @@ export const TeamRouter = (router: Router, service: TeamService): void => {
         const userId = req.user.id;
         console.log(`Update team teamId: ${id}`);
         // Call service
-        const data = await service.UpdateTeam(+id, +userId, obj);
-        data ? res.sendStatus(200) : res.sendStatus(404);
+        await service.UpdateTeam(+id, +userId, obj);
+        res.sendStatus(200);
       } catch (err) {
         ErrorHandler.update(res, err);
       }

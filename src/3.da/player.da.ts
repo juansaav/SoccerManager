@@ -1,4 +1,4 @@
-import { IPlayer } from "../interfaces/IPlayer";
+import { IPlayer, IPlayerUpdateDTO } from "../interfaces/IPlayer";
 import { db } from "./dbconnection";
 
 export class PlayerDA {
@@ -16,5 +16,15 @@ export class PlayerDA {
       },
     });
     return obj;
+  }
+
+  public async UpdatePlayer(
+    id: number,
+    data: IPlayerUpdateDTO
+  ): Promise<IPlayer> {
+    return await db.player.update({
+      where: { id },
+      data,
+    });
   }
 }
