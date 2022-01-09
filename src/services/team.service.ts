@@ -1,11 +1,9 @@
-import { TeamDA } from "../da"; 
-import { ITeam } from "../interfaces/ITeam"; 
-import { SessionService } from '.'; 
-import argon2 from 'argon2';
-import { randomBytes } from 'crypto'; 
+import { TeamDA } from "../da";
+import { ITeam } from "../interfaces/ITeam";
+import { PlayerService } from "./player.service";
 
 export class TeamService {
-  constructor(private teamda: TeamDA) {}
+  constructor(private teamda: TeamDA, private playerService: PlayerService) {}
 
   // Create Team
   public async CreateTeam(userId: number, countryCode: string): Promise<ITeam> {
@@ -22,6 +20,14 @@ export class TeamService {
     if (!team) {
       throw new Error("Team cannot be created");
     }
-    return team;
+
+    // Create players
+    const players = await this.playerService.GenerateRandomPlayers(
+      team.id,
+      countryCode
+    );
+    team.players = players;
+
+    return ITeam(team);
   }
-}  
+}

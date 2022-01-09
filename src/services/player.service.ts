@@ -17,10 +17,10 @@ export class PlayerService {
 
     // TODO: move to config
     const config = {
-      Goalkeepers: 3,
-      Defenders: 6,
-      Midfielders: 6,
-      Attackers: 5,
+      Goalkeeper: 3,
+      Defender: 6,
+      Midfielder: 6,
+      Attacker: 5,
     };
     // Create players and return
     const players = [];

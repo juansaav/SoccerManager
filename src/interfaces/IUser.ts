@@ -11,6 +11,14 @@ export interface IUser {
   team?: ITeam;
 }
 
+export function IUser(obj: IUser): IUser {
+  // Remove properties
+  Reflect.deleteProperty(obj, "password");
+  Reflect.deleteProperty(obj, "salt");
+  return obj;
+}
+
+
 export interface IUserInputDTO {
   email: string;
   firstName?: string;

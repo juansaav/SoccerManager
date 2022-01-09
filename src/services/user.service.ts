@@ -71,16 +71,7 @@ export class UserService {
     // Create team & players
     // Obs: This code could be moved to a separate service and called after sign up.
     const team = await this.teamService.CreateTeam(user.id, user.countryCode);
-    const players = await this.playerService.GenerateRandomPlayers(
-      team.id,
-      user.countryCode
-    );
 
-    // Clean and return entire object
-    // TODO: user render schema
-    Reflect.deleteProperty(user, "password");
-    Reflect.deleteProperty(user, "salt");
-
-    return { ...user, team: { ...team, players: players } };
+    return { ...user, team };
   }
 }  
