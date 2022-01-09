@@ -1,4 +1,4 @@
-import { UserDA } from "../da"; 
+import { UserDA } from "../3.da";
 import { IUser, IUserInputDTO } from "../interfaces/IUser";
 import argon2 from "argon2";
 import { randomBytes } from "crypto";
@@ -69,4 +69,4 @@ export class UserService {
 
     return IUser(user);
   }
-}  
+}

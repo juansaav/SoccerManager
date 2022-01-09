@@ -1,4 +1,4 @@
-import { Utils } from "../utils/utils";
+import { Utils } from "../common/utils";
 import { ITeam } from "./ITeam";
 
 export interface IUser {

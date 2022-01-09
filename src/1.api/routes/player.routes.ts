@@ -1,4 +1,4 @@
-import { PlayerService } from "../../services";
+import { PlayerService } from "../../2.services";
 import { Router, Response } from "express";
 import middlewares from "../middlewares";
 
@@ -14,7 +14,7 @@ export const PlayerRouter = (router: Router, service: PlayerService): void => {
       console.log(`Get player service id: ${id}`);
       // Call service
       const data = await service.GetPlayerId(+id);
-      res.status(200).send(data);
+      data ? res.status(200).send(data) : res.sendStatus(404);
     } catch (err) {
       console.log(err.message);
       res.status(500).send(err.message);

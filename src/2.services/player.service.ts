@@ -1,7 +1,7 @@
-import { PlayerDA } from "../da";
+import { PlayerDA } from "../3.da";
 import { IPlayer } from "../interfaces/IPlayer";
-import { Utils } from "../utils/utils";
-import { PlayerType } from "../da/playerType.enum";
+import { Utils } from "../common/utils";
+import { PlayerType } from "../3.da/playerType.enum";
 import randomName from "random-name";
 import * as _ from "lodash";
 

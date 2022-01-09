@@ -4,16 +4,20 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import config from './config'; 
-import { UserDA, ConfigurationDA, TeamDA, PlayerDA } from "./DA";
-import { UserService, ConfigurationService, SessionService } from "./services";
+import { UserDA, ConfigurationDA, TeamDA, PlayerDA } from "./3.da";
+import {
+  UserService,
+  ConfigurationService,
+  SessionService,
+} from "./2.services";
 import {
   UserRouter,
   SessionRouter,
   TeamRouter,
   PlayerRouter,
-} from "./api/routes";
-import { TeamService } from "./services/team.service";
-import { PlayerService } from "./services/player.service";
+} from "./1.api/routes";
+import { TeamService } from "./2.services/team.service";
+import { PlayerService } from "./2.services/player.service";
 
 // Initial configuration
 dotenv.config();

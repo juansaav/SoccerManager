@@ -1,9 +1,9 @@
-import jwt from 'jsonwebtoken'; 
-import argon2 from 'argon2';
-import { IUser } from '../interfaces'; 
-import { UserService } from "../services"; 
-import config from '../config';
- 
+import jwt from "jsonwebtoken";
+import argon2 from "argon2";
+import { IUser } from "../interfaces";
+import { UserService } from ".";
+import config from "../config";
+
 export class SessionService {
   constructor(private userService: UserService) {}
 

@@ -1,12 +1,12 @@
-import { TeamDA } from "../da";
-import { ITeam } from "../interfaces/ITeam";
+import { TeamDA } from "../3.da";
+import { Team, ITeamUpdateDTO, ITeam } from "../interfaces/ITeam";
 import { PlayerService } from "./player.service";
 
 export class TeamService {
   constructor(private teamda: TeamDA, private playerService: PlayerService) {}
 
   public async GetTeamId(id: number) {
-    return ITeam(await this.teamda.GetTeamId(id));
+    return Team(await this.teamda.GetTeamId(id));
   }
 
   public async CreateTeam(userId: number, countryCode: string): Promise<ITeam> {
@@ -29,6 +29,22 @@ export class TeamService {
     );
     team.players = players;
 
-    return ITeam(team);
+    return Team(team);
+  }
+
+  public async UpdateTeam(
+    id: number,
+    userId: number,
+    obj: ITeamUpdateDTO
+  ): Promise<boolean> {
+    const team = await this.teamda.GetTeamId(id);
+    if (!team) {
+      throw { code: 404, message: "Team not found" };
+    }
+    if (team.userId !== userId) {
+      throw { code: 401 };
+    }
+
+    return !!(await this.teamda.UpdateTeam(id, obj));
   }
 }

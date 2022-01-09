@@ -1,4 +1,4 @@
-import { PlayerType } from "../da/playerType.enum";
+import { PlayerType } from "../3.da/playerType.enum";
 
 export interface IPlayer {
   id?: number;

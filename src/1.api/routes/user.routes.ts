@@ -1,6 +1,6 @@
-import { UserService } from '../../services';
-import { Router, Response, Request } from 'express';
-import middlewares from '../middlewares';
+import { UserService } from "../../2.services";
+import { Router, Response, Request } from "express";
+import middlewares from "../middlewares";
 import { body } from "express-validator";
 
 const route = Router();
