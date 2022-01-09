@@ -4,28 +4,41 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import config from './config'; 
-import { UserDA, ConfigurationDA } from './DA'; 
-import { UserService, ConfigurationService, SessionService } from './services'; 
+import { UserDA, ConfigurationDA, TeamDA, PlayerDA } from "./DA";
+import { UserService, ConfigurationService, SessionService } from "./services";
 import { UserRouter, SessionRouter } from "./api/routes";
+import { TeamService } from "./services/team.service";
+import { PlayerService } from './services/player.service';
 
 // Initial configuration
-
-dotenv.config(); 
+dotenv.config();
 
 const app = express();
 const router = express.Router();
 
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.use('/', router);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use("/", router);
 
+// -------------------------------------------------------------
+// Dependency Injection
 
-// Define Routers
+// Data Access
+const userDa = new UserDA();
+const teamDa = new TeamDA();
+const playerDa = new PlayerDA();
 
-UserRouter(router, new UserService(new UserDA()));
-// MovieRouter(router, new MovieService(new MovieDA()));
-SessionRouter(router, new SessionService(new UserDA()));
+// Service layer
+const teamService = new TeamService(teamDa);
+const playerService = new PlayerService(playerDa);
+const userService = new UserService(userDa, teamService, playerService);
+const sessionService = new SessionService(userService);
 
+// Routers
+UserRouter(router, userService);
+SessionRouter(router, sessionService);
+
+// -------------------------------------------------------------
 // Start app
 
 app.listen(config.PORT, function() {  
@@ -40,8 +53,8 @@ app.listen(config.PORT, function() {
 });
 
 /**
-     * Handle 401 thrown by express-jwt library
-     */
+ * Handle 401 thrown by express-jwt library
+ */
 app.use((err, req, res, next) => {  
 if (err.name === 'UnauthorizedError') {    
 	res.status(401).json({"error" : err.name + ": " + err.message})  

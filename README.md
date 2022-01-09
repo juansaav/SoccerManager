@@ -10,6 +10,9 @@ This is a RESTful API that uses:
 - express-validator
 - mocha & chai & supertest
 
+# Patterns
+- Dependency Injection
+
 
 ## Install dependencies
 

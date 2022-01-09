@@ -10,32 +10,29 @@ export const UserRouter = (router: Router, service: UserService): void => {
     router.use('/user', route);
 
     // Create user 
-    route.post('/', 
+    route.post(
+      "/",
 
-      // Validations 
+      // Validations
       // email must be an email
-      body('email').isEmail(),
-      // password must be at least 5 chars long 
-      body('password').isLength({ min: 5 }),
-      // firstname not empty
-      body('firstName').notEmpty(),
-      // lastname not empty
-      body('lastName').notEmpty(),
+      body("email").isEmail(),
+      // password must be at least 5 chars long
+      body("password").isLength({ min: 5 }),
 
       middlewares.checkValidations,
 
       async (req: Request, res: Response) => {
         try {
-            // Call service
-            const newUser = req.body;
-            const data = await service.CreateUser(newUser);
-            res.status(200).send(data);
+          // Call service
+          const newUser = req.body;
+          const data = await service.CreateUser(newUser);
+          res.status(200).send(data);
+        } catch (err) {
+          console.log(err.message);
+          res.status(500).send(err.message);
         }
-        catch (err) { 
-            console.log(err.message);            
-            res.status(500).send(err.message)
-        }
-    })
+      }
+    );
 
     // Add favourite movie
     route.post('/:userId/movie/:movieId', middlewares.isAuth,

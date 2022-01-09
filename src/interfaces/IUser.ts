@@ -5,6 +5,7 @@ export interface IUser {
   email: string;
   firstName?: string;
   lastName?: string;
+  countryCode?: string;
   password: string;
   salt: string;
   team?: ITeam;
@@ -14,5 +15,6 @@ export interface IUserInputDTO {
   email: string;
   firstName?: string;
   lastName?: string;
+  countryCode: string;
   password: string;
 }
