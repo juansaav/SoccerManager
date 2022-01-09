@@ -1,4 +1,5 @@
-import { ITeam } from "./ITeam"; 
+import { Utils } from "../utils/utils";
+import { ITeam } from "./ITeam";
 
 export interface IUser {
   id?: number;
@@ -15,9 +16,8 @@ export function IUser(obj: IUser): IUser {
   // Remove properties
   Reflect.deleteProperty(obj, "password");
   Reflect.deleteProperty(obj, "salt");
-  return obj;
+  return Utils.cleanObj(obj);
 }
-
 
 export interface IUserInputDTO {
   email: string;

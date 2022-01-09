@@ -1,11 +1,13 @@
 import { UserService } from "./user.service";
-// import { MovieService } from "./movie.service";
 import { ConfigurationService } from "./configuration.service";
 import { SessionService } from "./session.service";
+import { TeamService } from "./team.service";
+import { PlayerService } from "./player.service";
 
 export {
-	UserService,
-	ConfigurationService,
-	// MovieService,
-	SessionService
-}
+  UserService,
+  ConfigurationService,
+  SessionService,
+  PlayerService,
+  TeamService,
+};

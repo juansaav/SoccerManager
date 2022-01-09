@@ -8,4 +8,13 @@ export class PlayerDA {
       data: newItem,
     });
   }
+
+  public async GetPlayerId(id: number): Promise<IPlayer> {
+    var obj = await db.player.findUnique({
+      where: {
+        id: id,
+      },
+    });
+    return obj;
+  }
 }

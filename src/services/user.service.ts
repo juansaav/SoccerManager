@@ -6,11 +6,7 @@ import { TeamService } from "./team.service";
 import { PlayerService } from "./player.service";
 
 export class UserService {
-  constructor(
-    private userda: UserDA,
-    private teamService: TeamService,
-    private playerService: PlayerService
-  ) {}
+  constructor(private userda: UserDA, private teamService: TeamService) {}
 
   // TODO: move to config
   private defaultCountryCode = "US";
@@ -47,7 +43,6 @@ export class UserService {
       throw new Error("Email already in use.");
     }
 
-    // -------------------------------------------------------------
     // Create user
 
     // Hash pwd using salt. This is used to better secure the pwd
@@ -67,11 +62,11 @@ export class UserService {
       throw new Error("User cannot be created");
     }
 
-    // -------------------------------------------------------------
-    // Create team & players
+    // Create team
     // Obs: This code could be moved to a separate service and called after sign up.
     const team = await this.teamService.CreateTeam(user.id, user.countryCode);
+    user.team = team;
 
-    return { ...user, team };
+    return IUser(user);
   }
 }  

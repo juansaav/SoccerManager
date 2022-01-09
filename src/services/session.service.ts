@@ -11,7 +11,7 @@ export class SessionService {
   public async SignIn(
     email: string,
     password: string
-  ): Promise<{ token: string; user: IUser }> {
+  ): Promise<{ token: string }> {
     console.log("Sign in service email:" + email);
 
     // User from db
@@ -37,7 +37,7 @@ export class SessionService {
       Reflect.deleteProperty(user, "salt");
 
       // Return token
-      return { token: token, user: user };
+      return { token: token };
     } else {
       throw new Error("Invalid Password");
     }

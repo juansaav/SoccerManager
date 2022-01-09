@@ -8,12 +8,16 @@ import * as _ from "lodash";
 export class PlayerService {
   constructor(private playerda: PlayerDA) {}
 
+  public async GetPlayerId(id: number) {
+    return await this.playerda.GetPlayerId(id);
+  }
+
   // Generates initial random players
   public async GenerateRandomPlayers(
     teamId: number,
     countryCode: string
   ): Promise<IPlayer[]> {
-    console.log("Create player service teamId: " + teamId);
+    console.log("Generate random players teamId: " + teamId);
 
     // TODO: move to config
     const config = {
@@ -34,12 +38,11 @@ export class PlayerService {
         players.push(add);
       }
     }
-    console.log(`Created ${players.length} players teamId: ${teamId}.`);
     return players;
   }
 
   // Create Player
-  public async CreateRandomPlayer(
+  private async CreateRandomPlayer(
     teamId: number,
     type: PlayerType,
     countryCode: string

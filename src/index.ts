@@ -6,9 +6,14 @@ import dotenv from 'dotenv';
 import config from './config'; 
 import { UserDA, ConfigurationDA, TeamDA, PlayerDA } from "./DA";
 import { UserService, ConfigurationService, SessionService } from "./services";
-import { UserRouter, SessionRouter } from "./api/routes";
+import {
+  UserRouter,
+  SessionRouter,
+  TeamRouter,
+  PlayerRouter,
+} from "./api/routes";
 import { TeamService } from "./services/team.service";
-import { PlayerService } from './services/player.service';
+import { PlayerService } from "./services/player.service";
 
 // Initial configuration
 dotenv.config();
@@ -31,10 +36,12 @@ const playerDa = new PlayerDA();
 // Service layer
 const playerService = new PlayerService(playerDa);
 const teamService = new TeamService(teamDa, playerService);
-const userService = new UserService(userDa, teamService, playerService);
+const userService = new UserService(userDa, teamService);
 const sessionService = new SessionService(userService);
 
 // Routers
+PlayerRouter(router, playerService);
+TeamRouter(router, teamService);
 UserRouter(router, userService);
 SessionRouter(router, sessionService);
 

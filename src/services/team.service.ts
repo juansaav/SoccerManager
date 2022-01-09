@@ -5,10 +5,11 @@ import { PlayerService } from "./player.service";
 export class TeamService {
   constructor(private teamda: TeamDA, private playerService: PlayerService) {}
 
-  // Create Team
-  public async CreateTeam(userId: number, countryCode: string): Promise<ITeam> {
-    console.log("Create team service user: " + userId);
+  public async GetTeamId(id: number) {
+    return ITeam(await this.teamda.GetTeamId(id));
+  }
 
+  public async CreateTeam(userId: number, countryCode: string): Promise<ITeam> {
     // Create team
     const team = await this.teamda.CreateTeam({
       name: `Team of user ${userId}`,
