@@ -4,12 +4,12 @@ import argon2 from "argon2";
 import { randomBytes } from "crypto";
 import { TeamService } from "./team.service";
 import { PlayerService } from "./player.service";
+import config from "../config";
 
 export class UserService {
   constructor(private userda: UserDA, private teamService: TeamService) {}
 
-  // TODO: move to config
-  private defaultCountryCode = "US";
+  private defaultCountryCode = config.DEFAULT_COUNTRY;
 
   // Get User by id
   public async GetUserId(id: number, includeTeam: boolean = false) {
@@ -20,18 +20,6 @@ export class UserService {
   public async GetUserEmail(email: string) {
     return await this.userda.GetUserEmail(email);
   }
-
-  // // Get favourite Movies for User
-  // public async GetFavouriteMovies(userId: number) {
-  //     console.log('Get favourite movies user:' + userId );
-  //     return this.userda.GetFauvoriteMovies(userId);
-  // }
-
-  // // Add favourite Movie
-  // public async AddFavouriteMovie(userId: number, movieId) {
-  //     console.log('Add favourite movie user:' + userId + ' movie:' + movieId);
-  //     return await this.userda.AddFauvoriteMovie(userId, movieId);
-  // }
 
   // Create User
   public async CreateUser(userInputDTO: IUserInputDTO): Promise<IUser> {

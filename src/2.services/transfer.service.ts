@@ -1,5 +1,7 @@
 import { TeamService, UserService } from ".";
 import { TransferDA } from "../3.da";
+import { Utils } from "../common/utils";
+import config from "../config";
 import { ITransfer, ITransferUpdateDTO } from "../interfaces/ITransfer";
 import { PlayerService } from "./player.service";
 
@@ -11,8 +13,12 @@ export class TransferService {
     private teamService: TeamService
   ) {}
 
-  public async GetTransferPlayer(playerId: number) {
-    return await this.transferda.GetTransferPlayer(playerId);
+  public async GetTransfers() {
+    return await this.transferda.GetTransfers();
+  }
+
+  public async GetTransferId(id: number) {
+    return await this.transferda.GetTransferId(id);
   }
 
   public async CreateTransfer(
@@ -40,6 +46,7 @@ export class TransferService {
     const transfer = await this.transferda.CreateTransfer({
       price: price,
       playerId: playerId,
+      active: true,
     });
     if (!transfer) {
       throw new Error("Transfer cannot be created");
@@ -47,24 +54,18 @@ export class TransferService {
     return transfer;
   }
 
-  public async UpdateTransfer(
-    userId,
-    playerId: number,
-    update: ITransferUpdateDTO
-  ): Promise<ITransfer> {
+  public async UpdateTransfer(userId, transferId: number): Promise<ITransfer> {
     const a = 1;
     // Validations
-    const [user, player, transferObj] = await Promise.all([
+    const [user, transferObj] = await Promise.all([
       this.userService.GetUserId(userId, true),
-      this.playerService.GetPlayerId(playerId),
-      this.GetTransferPlayer(playerId),
+      this.GetTransferId(transferId),
     ]);
-    if (!player) {
-      throw { code: 404, message: "Player not found" };
-    }
     if (!transferObj) {
       throw { code: 404, message: "Transfer player not found" };
     }
+    // Get player
+    const player = await this.playerService.GetPlayerId(transferObj.playerId);
     if (player.teamId === user.team.id) {
       throw {
         code: 400,
@@ -85,31 +86,24 @@ export class TransferService {
       trenasferedOn: new Date(),
       trenasferedTo: user.team.id,
     });
-    if (!transfer) {
-      throw new Error("Transfer cannot be created");
-    }
 
-    // Update team budget
-    const teamU = await this.teamService.UpdateTeam(user.team.id, {
+    // Update old team budget
+    await this.teamService.UpdateTeam(user.team.id, {
       budget: user.team.budget - transferObj.price,
+    });
+
+    // Update new team budget
+    await this.teamService.UpdateTeam(player.teamId, {
+      budget: user.team.budget + transferObj.price,
+    });
+
+    // Update player value
+    const { min, max } = config.INCREASE_PLAYER_VALUE;
+    const playerU = await this.playerService.UpdatePlayer(player.id, {
+      value: player.value + (player.value * Utils.randomInt(min, max)) / 100,
+      teamId: user.team.id,
     });
 
     return transfer;
   }
-
-  // public async UpdateTransfer(
-  //   id: number,
-  //   userId: number,
-  //   obj: ITransferUpdateDTO
-  // ) {
-  //   const transfer = await this.transferda.GetTransferId(id);
-  //   if (!transfer) {
-  //     throw { code: 404, message: "Transfer not found" };
-  //   }
-  //   if (transfer.userId !== userId) {
-  //     throw { code: 401 };
-  //   }
-
-  //   await this.transferda.UpdateTransfer(id, obj);
-  // }
 }

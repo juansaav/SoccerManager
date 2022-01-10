@@ -47,7 +47,7 @@ export const PlayerRouter = (router: Router, service: PlayerService): void => {
         const userId = req.user.id;
         console.log(`Update player playerId: ${playerId}`);
         // Call service
-        await service.UpdatePlayer(+playerId, +userId, obj);
+        await service.ValidateUpdatePlayer(+playerId, +userId, obj);
         res.sendStatus(200);
       } catch (err) {
         ErrorHandler.update(res, err);

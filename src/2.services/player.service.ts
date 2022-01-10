@@ -5,6 +5,7 @@ import { PlayerType } from "../3.da/playerType.enum";
 import randomName from "random-name";
 import * as _ from "lodash";
 import { TeamService, UserService } from ".";
+import config from "../config";
 
 export class PlayerService {
   private teamService;
@@ -27,17 +28,11 @@ export class PlayerService {
   ): Promise<IPlayer[]> {
     console.log("Generate random players teamId: " + teamId);
 
-    // TODO: move to config
-    const config = {
-      Goalkeeper: 3,
-      Defender: 6,
-      Midfielder: 6,
-      Attacker: 5,
-    };
+    const configObj = config.TEAM_CONFIG;
     // Create players and return
     const players = [];
-    for (const key in config) {
-      for (let i = 0; i < config[key]; i++) {
+    for (const key in configObj) {
+      for (let i = 0; i < configObj[key]; i++) {
         const add = await this.CreateRandomPlayer(
           teamId,
           <PlayerType>key,
@@ -71,7 +66,11 @@ export class PlayerService {
     return player;
   }
 
-  public async UpdatePlayer(id: number, userId: number, obj: IPlayerUpdateDTO) {
+  public async ValidateUpdatePlayer(
+    id: number,
+    userId: number,
+    obj: IPlayerUpdateDTO
+  ) {
     const [user, player] = await Promise.all([
       this.userService.GetUserId(userId, true),
       this.GetPlayerId(id),
@@ -85,6 +84,10 @@ export class PlayerService {
         message: "User is not the owner of the team " + player.teamId,
       };
     }
+    await this.playerda.UpdatePlayer(id, obj);
+  }
+
+  public async UpdatePlayer(id: number, obj: IPlayerUpdateDTO) {
     await this.playerda.UpdatePlayer(id, obj);
   }
 }

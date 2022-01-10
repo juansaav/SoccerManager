@@ -13,4 +13,6 @@ export interface IPlayerUpdateDTO {
   firstName?: string;
   lastName?: string;
   countryCode?: string;
+  value?: number;
+  teamId: number;
 }

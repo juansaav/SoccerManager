@@ -2,21 +2,18 @@ import { ITransfer, ITransferUpdateDTO } from "../interfaces/ITransfer";
 import { db } from "./dbconnection";
 
 export class TransferDA {
-  public async GetTransferPlayer(playerId: number): Promise<ITransfer> {
+  public async GetTransfers(): Promise<ITransfer[]> {
+    var obj = await db.transferPlayer.findMany({
+      where: {
+        active: true,
+      },
+    });
+    return obj;
+  }
+  public async GetTransferId(transferId: number): Promise<ITransfer> {
     var obj = await db.transferPlayer.findFirst({
       where: {
-        AND: [
-          {
-            playerId: {
-              equals: playerId,
-            },
-          },
-          {
-            active: {
-              equals: true,
-            },
-          },
-        ],
+        id: transferId,
       },
     });
     return obj;

@@ -33,34 +33,4 @@ export class UserDA {
       data: newUser,
     });
   }
-
-  // public async GetFauvoriteMovies(userId: number):Promise<IMovie[]>  {
-
-  //     // Get favourites movies
-  //     const user = await db.user.findUnique({
-  //       where: {
-  //         id: userId,
-  //       },
-  //       include: {
-  //         movies: { include: { movie: true } },
-  //       },
-  //     });
-  //     // Return only movies
-  //     const result = user.movies.map(movie => {
-  //       var movieRet = <IMovie> movie.movie
-  //       movieRet.addedAt = movie.createdAt;
-  //       return movieRet;
-  //     })
-  //     return result;
-
-  // }s
-
-  // public async AddFauvoriteMovie(userId: number, movieId: number): Promise<void>  {
-
-  //     // Add favourite movie to user
-  //     await db.favouriteMovies.create({
-  //       data : { userId: userId, movieId: movieId }
-  //     })
-
-  // }
 }

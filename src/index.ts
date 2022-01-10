@@ -48,7 +48,8 @@ const sessionService = new SessionService(userService);
 const transferService = new TransferService(
   transferDa,
   playerService,
-  userService
+  userService,
+  teamService
 );
 
 // Routers

@@ -53,9 +53,10 @@ model TransferPlayer {
   active            Boolean          @default(true)
 
   player            Player @relation(fields: [playerId], references: [id])
-  playerId          Int              @unique 
+  playerId          Int              
   
-  @@index([playerId, active])
+  @@index([playerId, active]) 
+  @@unique([playerId, active]) 
 }
 
 
