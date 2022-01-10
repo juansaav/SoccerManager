@@ -30,43 +30,4 @@ export const UserRouter = (router: Router, service: UserService): void => {
       }
     }
   );
-
-  // Add favourite movie
-  // route.post(
-  //   "/:userId/movie/:movieId",
-  //   middlewares.isAuth,
-  //   async (req: any, res: Response) => {
-  //     try {
-  //       const { userId } = req.params;
-  //       const { movieId } = req.params;
-
-  //       // Call service
-  //       // const data = await service.AddFavouriteMovie(+userId, +movieId);
-  //       const data = [];
-  //       res.status(200).send(data);
-  //     } catch (err) {
-  //       console.log(err.message);
-  //       res.status(500).send(err.message);
-  //     }
-  //   }
-  // );
-
-  // // Get user favourite movies
-  // route.get(
-  //   "/:userId/movie",
-  //   middlewares.isAuth,
-  //   async (req: any, res: Response) => {
-  //     try {
-  //       const userId = req.params.userId;
-
-  //       // Call service
-  //       // const data = await service.GetFavouriteMovies(+userId);
-  //       const data = [];
-  //       res.status(200).send(data);
-  //     } catch (err) {
-  //       console.log(err.message);
-  //       res.status(500).send(err.message);
-  //     }
-  //   }
-  // );
 };

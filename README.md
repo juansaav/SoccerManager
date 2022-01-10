@@ -9,18 +9,16 @@ This is a RESTful API that uses:
 - Prisma 
 - express-validator
 - mocha & chai & supertest
-
-# Patterns
 - Dependency Injection
 
 
 ## Install dependencies
 
-    npm install
+    npm i
 
 ## Run the app 
 
-   npx ts-node src
+   npx run start
    
 Default port: 7000 (.env file)
 
@@ -30,17 +28,18 @@ Default port: 7000 (.env file)
 
 # REST API
 
-The REST API is described below. Only "Create user" and "Login" services are public. For the rest you must add an Authorization header "Bearer token" in order to call them. You can also import the Postman project "postman_movies.json" from the root folder to test the API.
-
+The REST API is described below. Only "Create user" and "Login" services are public. For the rest you must add an Authorization header "Bearer token" in order to call them. You can also import the Postman project "postman_soccermanager.json" from the root folder to test the API.
+Fields with a (*) are required.
 ## Create user
 
 ### Request
 `POST /user`
 {
-	email: "test@test.com",
+	* email: "test@test.com",
 	firstName= "first name",
 	lastName= "last name",
-	password="password1"
+	countryCode= "US",
+	* password="password1"
 }
 
 ### Response
@@ -49,8 +48,10 @@ The REST API is described below. Only "Create user" and "Login" services are pub
 	id:1,
 	email: "test@test.com",
 	firstName= "first name",
-	lastName= "last name".
-	password="password1"
+	lastName= "last name",
+	countryCode= "US",
+	password="password1",
+	team= {...}
 }
 
 ## Login
@@ -79,58 +80,131 @@ Authorization: Bearer token....
 ### Response
     HTTP/1.1 200 OK  
 
-## Get movies filtered by a keyWord (authenticated)
+## Get player (authenticated)
 ### Request
-`GET /movie?keyWord=keyWord1`
+`GET /player/:id`
 Authorization: Bearer token....
 
 
 ### Response
-Returns list of movies 
+Returns player 
 
     HTTP/1.1 200 OK 
-[
+
 	{
-		"id": 635302,
-	    "adult": false, 
-	    "original_language": "ja"
+		"id": 54,
+	    "name": "Juan", 
+	    "age": 35
 	    ...
 	    ..
-	},
-	{
-		...
 	}
-]
 
-## Add movie to favourites (authenticated)
-
+## Edit player (authenticated)
 ### Request
-`GET user/userId1/movie/movieId1`
+`PUT /player/:id`
 Authorization: Bearer token....
+{
+	name= "Test player name",
+	countryCode= "US",
+}
+### Response
+Returns team 
+HTTP/1.1 200 OK 
 
-### Response 
-    HTTP/1.1 200 OK 
 
-## Get favourites user movies (authenticated)
 
+## Get team (authenticated)
 ### Request
-`GET user/userId1/movie`
+`GET /team/:id`
 Authorization: Bearer token....
-
-### Response 
-    HTTP/1.1 200 OK 
-Returns list of favourites movies of the user
+### Response
+Returns team 
 
     HTTP/1.1 200 OK 
-[
+
 	{
-		"id": 635302,
-	    "adult": false, 
-	    "original_language": "ja"
+		"id": 2,
+	    "name": "Team 1", 
+	    "countryCode": "US"
 	    ...
 	    ..
-	},
-	{
-		...
 	}
-]
+
+## Edit team (authenticated)
+### Request
+`PUT /team/:id`
+Authorization: Bearer token....
+{
+	name= "Test team name",
+	countryCode= "US",
+}
+
+### Response
+Returns team 
+HTTP/1.1 200 OK 
+
+
+## Get transfer (authenticated)
+### Request
+`GET /transfer`
+Authorization: Bearer token....
+
+### Response
+Returns team 
+HTTP/1.1 200 OK 
+{
+	[
+		{
+			"id":1,
+			"player1",
+			"price": 5000000,
+			...
+		}, 
+		{
+			"id":2,
+			"player2",
+			"price": 3000000,
+			...
+		}
+	]
+}
+
+## Post transfer (authenticated)
+### Request
+`POST /transfer/:id`
+Authorization: Bearer token....
+{
+	"playerId":2,
+	"price":1567000
+}
+### Response
+Returns team 
+HTTP/1.1 200 OK 
+{
+	"id": 2,
+	"playerId": 2, 
+	"price":1567000,
+	"publishedOn": ...
+	...
+	..
+}
+
+
+## Buy player (authenticated)
+### Request
+`put /transfer/:id`
+Authorization: Bearer token....
+{
+}
+### Response
+Returns team 
+HTTP/1.1 200 OK 
+{
+	"id": 2,
+	"playerId": 2, 
+	"price":1567000,
+	"active": false
+	"publishedOn": ...
+	...
+	..
+}

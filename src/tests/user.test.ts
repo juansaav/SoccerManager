@@ -1,5 +1,3 @@
-// Separate this file in: movie, session.. Mocha tests order problem
-
 import app from "..";
 import { agent as request } from "supertest";
 import { expect } from "chai";

@@ -59,14 +59,13 @@ TransferRouter(router, transferService);
 // Start app
 
 app.listen(config.PORT, function() {  
-   console.log("##############################\n"+
-   	           "Server is running on port " + config.PORT + "\n" + 
-   	           "##############################");
-
-   // Import movies if required
-   // let configService = new ConfigurationService(new ConfigurationDA(), new MovieDA());
-   // configService.importMovies();
-
+   console.log(
+     "##############################\n" +
+       "Server is running on port " +
+       config.PORT +
+       "\n" +
+       "##############################"
+   );
 });
 
 /**
