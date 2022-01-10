@@ -34,42 +34,42 @@ Fields with a (*) are required.
 
 ### Request
 `POST /user`
-{
-	* email: "test@test.com",
-	firstName= "first name",
-	lastName= "last name",
-	countryCode= "US",
-	* password="password1"
-}
+	{
+		* email: "test@test.com",
+		firstName= "first name",
+		lastName= "last name",
+		countryCode= "US",
+		* password="password1"
+	}
 
 ### Response
     HTTP/1.1 200 OK 
-{
-	id:1,
-	email: "test@test.com",
-	firstName= "first name",
-	lastName= "last name",
-	countryCode= "US",
-	password="password1",
-	team= {...}
-}
+	{
+		id:1,
+		email: "test@test.com",
+		firstName= "first name",
+		lastName= "last name",
+		countryCode= "US",
+		password="password1",
+		team= {...}
+	}
 
 ## Login
 
 ### Request
 `POST /session`
 
-{
-	email: "test@test.com",
-	password="password1"
-}
+	{
+		* email: "test@test.com",
+		* password="password1"
+	}
 
 ### Response
     HTTP/1.1 200 OK  
-{
-	token:"tokendata...",
-	user: userData
-}
+	{
+		token:"tokendata...",
+		user: userData
+	}
 
 ## Logout (authenticated)
 
@@ -89,7 +89,7 @@ Authorization: Bearer token....
 ### Response
 Returns player 
 
-    HTTP/1.1 200 OK 
+HTTP/1.1 200 OK 
 
 	{
 		"id": 54,
@@ -103,15 +103,13 @@ Returns player
 ### Request
 `PUT /player/:id`
 Authorization: Bearer token....
-{
-	name= "Test player name",
-	countryCode= "US",
-}
+	{
+		name= "Test player name",
+		countryCode= "US",
+	}
 ### Response
 Returns team 
 HTTP/1.1 200 OK 
-
-
 
 ## Get team (authenticated)
 ### Request
@@ -119,9 +117,7 @@ HTTP/1.1 200 OK
 Authorization: Bearer token....
 ### Response
 Returns team 
-
-    HTTP/1.1 200 OK 
-
+HTTP/1.1 200 OK 
 	{
 		"id": 2,
 	    "name": "Team 1", 
@@ -134,10 +130,10 @@ Returns team
 ### Request
 `PUT /team/:id`
 Authorization: Bearer token....
-{
-	name= "Test team name",
-	countryCode= "US",
-}
+	{
+		name= "Test team name",
+		countryCode= "US",
+	}
 
 ### Response
 Returns team 
@@ -152,42 +148,42 @@ Authorization: Bearer token....
 ### Response
 Returns team 
 HTTP/1.1 200 OK 
-{
-	[
-		{
-			"id":1,
-			"player1",
-			"price": 5000000,
-			...
-		}, 
-		{
-			"id":2,
-			"player2",
-			"price": 3000000,
-			...
-		}
-	]
-}
+	{
+		[
+			{
+				"id":1,
+				"player1",
+				"price": 5000000,
+				...
+			}, 
+			{
+				"id":2,
+				"player2",
+				"price": 3000000,
+				...
+			}
+		]
+	}
 
 ## Post transfer (authenticated)
 ### Request
 `POST /transfer/:id`
 Authorization: Bearer token....
-{
-	"playerId":2,
-	"price":1567000
-}
+	{
+		* "playerId":2,
+		* "price":1567000
+	}
 ### Response
 Returns team 
 HTTP/1.1 200 OK 
-{
-	"id": 2,
-	"playerId": 2, 
-	"price":1567000,
-	"publishedOn": ...
-	...
-	..
-}
+	{
+		"id": 2,
+		"playerId": 2, 
+		"price":1567000,
+		"publishedOn": ...
+		...
+		..
+	}
 
 
 ## Buy player (authenticated)
@@ -199,12 +195,12 @@ Authorization: Bearer token....
 ### Response
 Returns team 
 HTTP/1.1 200 OK 
-{
-	"id": 2,
-	"playerId": 2, 
-	"price":1567000,
-	"active": false
-	"publishedOn": ...
-	...
-	..
-}
+	{
+		"id": 2,
+		"playerId": 2, 
+		"price":1567000,
+		"active": false
+		"publishedOn": ...
+		...
+		..
+	}
