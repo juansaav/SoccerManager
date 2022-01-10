@@ -7,7 +7,7 @@
     "build": "npx tsc",
     "start": "node dist/index.js",
     "debug": "npx ts-node src",
-    "test": "nyc mocha  -r ts-node/register src/tests/tests.ts --exit",
+    "test": "npm run updateModel && nyc mocha  -r ts-node/register src/tests/*.test.ts --exit",
     "updateModel": "npx prisma generate && npx prisma db push --force-reset --preview-feature"
   },
   "author": "Juan Saavedra",

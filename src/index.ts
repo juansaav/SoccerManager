@@ -4,12 +4,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import config from './config'; 
-import { UserDA, ConfigurationDA, TeamDA, PlayerDA, TransferDA } from "./3.da";
-import {
-  UserService,
-  ConfigurationService,
-  SessionService,
-} from "./2.services";
+import { UserDA, TeamDA, PlayerDA, TransferDA } from "./3.da";
+import { UserService, SessionService } from "./2.services";
 import {
   UserRouter,
   SessionRouter,
