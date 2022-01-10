@@ -4,7 +4,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import config from './config'; 
-import { UserDA, ConfigurationDA, TeamDA, PlayerDA } from "./3.da";
+import { UserDA, ConfigurationDA, TeamDA, PlayerDA, TransferDA } from "./3.da";
 import {
   UserService,
   ConfigurationService,
@@ -18,6 +18,8 @@ import {
 } from "./1.api/routes";
 import { TeamService } from "./2.services/team.service";
 import { PlayerService } from "./2.services/player.service";
+import { TransferService } from "./2.services/transfer.service";
+import { TransferRouter } from "./1.api/routes/transfer.routes";
 
 // Initial configuration
 dotenv.config();
@@ -36,18 +38,25 @@ app.use("/", router);
 const userDa = new UserDA();
 const teamDa = new TeamDA();
 const playerDa = new PlayerDA();
+const transferDa = new TransferDA();
 
 // Service layer
 const playerService = new PlayerService(playerDa, teamDa, userDa);
 const teamService = new TeamService(teamDa, playerService);
 const userService = new UserService(userDa, teamService);
 const sessionService = new SessionService(userService);
+const transferService = new TransferService(
+  transferDa,
+  playerService,
+  userService
+);
 
 // Routers
 PlayerRouter(router, playerService);
 TeamRouter(router, teamService);
 UserRouter(router, userService);
 SessionRouter(router, sessionService);
+TransferRouter(router, transferService);
 
 // -------------------------------------------------------------
 // Start app

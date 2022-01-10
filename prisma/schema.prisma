@@ -40,6 +40,22 @@ model Player {
 
   team             Team @relation(fields: [teamId], references: [id])
   teamId           Int
+
+  transferList     TransferPlayer[]
+}
+
+model TransferPlayer {
+  id                Int              @id @default(autoincrement())
+  price             Int
+  publishedOn       DateTime         @default(now())                     
+  trenasferedOn     DateTime?                           
+  trenasferedTo     Int?                         
+  active            Boolean          @default(true)
+
+  player            Player @relation(fields: [playerId], references: [id])
+  playerId          Int              @unique 
+  
+  @@index([playerId, active])
 }
 
 

@@ -32,7 +32,12 @@ export class TeamService {
     return Team(team);
   }
 
-  public async UpdateTeam(id: number, userId: number, obj: ITeamUpdateDTO) {
+  // Chacks if the user is the owner of the team
+  public async ValidateUpdateTeam(
+    id: number,
+    userId: number,
+    obj: ITeamUpdateDTO
+  ) {
     const team = await this.teamda.GetTeamId(id);
     if (!team) {
       throw { code: 404, message: "Team not found" };
@@ -41,6 +46,11 @@ export class TeamService {
       throw { code: 401 };
     }
 
+    await this.UpdateTeam(id, obj);
+  }
+
+  // Updates the team
+  public async UpdateTeam(id: number, obj: ITeamUpdateDTO) {
     await this.teamda.UpdateTeam(id, obj);
   }
 }

@@ -1,5 +1,3 @@
-import { PlayerType } from "../3.da/playerType.enum";
-
 export interface IPlayer {
   id?: number;
   firstName: string;
@@ -10,7 +8,6 @@ export interface IPlayer {
   value: number;
   teamId: number;
 }
-
 
 export interface IPlayerUpdateDTO {
   firstName?: string;

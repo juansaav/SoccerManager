@@ -19,4 +19,5 @@ export function Team(obj: ITeam): ITeam {
 export interface ITeamUpdateDTO {
   name?: string;
   countryCode?: string;
+  budget?: number;
 }
