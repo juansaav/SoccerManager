@@ -7,12 +7,15 @@ if (dotEnv.error) {
 }
 
 export default {
-  // App port
+  // Port
   PORT: parseInt(process.env.PORT || "7000", 10),
 
   // JWT
   JWT_SECRET: process.env.JWT_SECRET,
   JWT_ALGORITHM: process.env.JWT_ALGORITHM,
+
+  // GraphQL
+  GRAPHQL_PATH: process.env.GRAPHQL_PATH || "/graphql",
 
   // SYSTEM CONFIGURATIONS
   // This must be moved to the DB

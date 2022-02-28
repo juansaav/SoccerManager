@@ -21,6 +21,10 @@ export class PlayerService {
     return await this.playerda.GetPlayerId(id);
   }
 
+  public async GetPlayers(limit: number) {
+    return await this.playerda.GetPlayers(limit);
+  }
+
   // Generates initial random players
   public async GenerateRandomPlayers(
     teamId: number,
@@ -28,7 +32,9 @@ export class PlayerService {
   ): Promise<IPlayer[]> {
     console.log("Generate random players teamId: " + teamId);
 
+    // How many players per type
     const configObj = config.TEAM_CONFIG;
+
     // Create players and return
     const players = [];
     for (const key in configObj) {
@@ -42,6 +48,15 @@ export class PlayerService {
       }
     }
     return players;
+  }
+
+  public async CreatePlayer(data: IPlayer): Promise<IPlayer> {
+    // Create player
+    const player = await this.playerda.CreatePlayer(data);
+    if (!player) {
+      throw new Error("Player cannot be created");
+    }
+    return player;
   }
 
   private async CreateRandomPlayer(
@@ -88,6 +103,11 @@ export class PlayerService {
   }
 
   public async UpdatePlayer(id: number, obj: IPlayerUpdateDTO) {
-    await this.playerda.UpdatePlayer(id, obj);
+    const ret = await this.playerda.UpdatePlayer(id, obj);
+    return ret;
+  }
+
+  public async DeletePlayer(id: number) {
+    return await this.playerda.DeletePlayer(id);
   }
 }

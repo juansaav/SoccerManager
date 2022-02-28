@@ -12,6 +12,7 @@ export const UserRouter = (router: Router, service: UserService): void => {
   route.post(
     "/",
     // email must be an email
+    body("email").notEmpty(),
     body("email").isEmail(),
     // password must be at least 5 chars long
     body("password").isLength({ min: 5 }),

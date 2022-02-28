@@ -18,6 +18,8 @@ export const SessionRouter = (
     // Validations
     // email is not empty
     body("email").notEmpty(),
+    body("email").isEmail(),
+
     // password is not empty
     body("password").notEmpty(),
     middlewares.checkValidations,

@@ -12,8 +12,15 @@ export class PlayerDA {
   public async GetPlayerId(id: number): Promise<IPlayer> {
     var obj = await db.player.findUnique({
       where: {
-        id: id,
+        id,
       },
+    });
+    return obj;
+  }
+
+  public async GetPlayers(limit: number): Promise<IPlayer[]> {
+    var obj = await db.player.findMany({
+      take: limit,
     });
     return obj;
   }
@@ -25,6 +32,12 @@ export class PlayerDA {
     return await db.player.update({
       where: { id },
       data,
+    });
+  }
+
+  public async DeletePlayer(id: number): Promise<IPlayer> {
+    return await db.player.delete({
+      where: { id },
     });
   }
 }
