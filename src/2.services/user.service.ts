@@ -5,6 +5,7 @@ import { randomBytes } from "crypto";
 import { TeamService } from "./team.service";
 import { PlayerService } from "./player.service";
 import config from "../config";
+import sendWelcomeEmail from "./bee-queue/client";
 
 export class UserService {
   constructor(private userda: UserDA, private teamService: TeamService) {}
@@ -54,6 +55,9 @@ export class UserService {
     // Obs: This code could be moved to a separate service and called after sign up.
     const team = await this.teamService.CreateTeam(user.id, user.countryCode);
     user.team = team;
+
+    // send welcome email
+    sendWelcomeEmail(user.email);
 
     return IUser(user);
   }

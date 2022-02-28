@@ -17,8 +17,8 @@ import { PlayerService } from "./2.services/player.service";
 import { TransferService } from "./2.services/transfer.service";
 import { TransferRouter } from "./1.api/routes/transfer.routes";
 import { graphqlHTTP } from "express-graphql";
-import graphql from "./1.api/graphql/index";
 import getGraphQLSchema from "./1.api/graphql/index";
+import startWorker from "./2.services/bee-queue/worker";
 
 // Initial configuration
 dotenv.config();
@@ -98,6 +98,8 @@ app.use((err, req, res, next) => {
   }
 });
 
+/** Start bee-queue worker */
+startWorker();
 
 
 

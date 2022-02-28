@@ -17,6 +17,10 @@ export default {
   // GraphQL
   GRAPHQL_PATH: process.env.GRAPHQL_PATH || "/graphql",
 
+  // Redis
+  REDIS_HOST: process.env.REDIS_HOST || "localhost",
+  REDIS_PORT: parseInt(process.env.REDIS_PORT || "6379", 10),
+
   // SYSTEM CONFIGURATIONS
   // This must be moved to the DB
   DEFAULT_COUNTRY: "US",

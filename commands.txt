@@ -1,0 +1,36 @@
+
+# Typescript
+# Compile and run
+
+npm start
+
+#### Prisma
+
+// Migrate
+npx prisma migrate dev --name init
+
+// ??
+npx prisma format
+
+// Reset db
+npx prisma db push --force-reset --preview-feature
+
+// Generate client
+npx prisma generate
+
+#### Start api
+npm start
+
+
+Todo
+
+
+Concurrency : update team budget
+Logger
+Tipado de salida, mapping de objetos
+Tutorial  node typescript
+Unit tests
+JWT con clave asimetrica
+Use fake database to test
+Improve unit tests
+Pagination
