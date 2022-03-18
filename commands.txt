@@ -23,14 +23,13 @@ npm start
 
 
 Todo
-
-
-Concurrency : update team budget
-Logger
-Tipado de salida, mapping de objetos
-Tutorial  node typescript
-Unit tests
-JWT con clave asimetrica
-Use fake database to test
-Improve unit tests
-Pagination
+- Improve Logging
+- Improve Error handling
+- Improve unit tests:
+    - use async lib (series, waterfall, etc)
+    - use mocked database
+- Implement Pagination
+- Implement concurrent programming
+- Implement bulk ops to insert/update records
+- Cache (prisma doesn't support redis yet), investigate
+- Send email
